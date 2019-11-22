@@ -7,15 +7,12 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
     console.log('Connected to MongoDB server');
 
-    db.collection('Todos').insertOne({
-        text: 'Something to do',
-        completed: true
-    }, (err, response) => {
-        if (err) {
-            return console.log('Unable to insert todo', err);
-        }
+    // db.collection('Todos').findOneAndDelete({ 'completed': false }).then((response) => {
+    //     console.log(response)
+    // })
 
-        console.log(JSON.stringify(response.ops, undefined, 2))
+    db.collection('Todos').deleteMany({ 'completed': true }).then((result) => {
+        console.log(JSON.stringify(result, undefined, 2))
     })
 
     db.close();
